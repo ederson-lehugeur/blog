@@ -21,8 +21,9 @@ public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "indice", sequenceName = "indice")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "indice")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/*@SequenceGenerator(name = "indice", sequenceName = "indice")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "indice")*/
 	private Long id;
 
 	@Column(nullable = false, length = 80)

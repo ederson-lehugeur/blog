@@ -18,8 +18,12 @@ public class PostService {
 		return repository.findAll();
 	}
 
-	public Optional<Post> findOne(Long id) {
+	/*public Post findById(Long id) {
 		return repository.findById(id);
+	}*/
+
+	public Post findPostById(Long id) {
+		return repository.findPostById(id);
 	}
 
 	public Post save(Post post) {
