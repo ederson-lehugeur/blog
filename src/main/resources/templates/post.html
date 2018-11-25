@@ -29,6 +29,7 @@
 					<thead>
 						<tr>
 							<th>ID</th>
+							<th>Categoria</th>
 							<th>Autor</th>
 							<th>T&iacute;tulo</th>
 							<th>Data</th>
@@ -38,6 +39,7 @@
 					<tbody>
 						<tr th:each="post : ${posts}">
 							<td th:text="${post.id}"></td>
+							<td th:text="${post.categoria.nome}"></td>
 							<td th:text="${post.autor}"></td>
 							<td th:text="${post.titulo}"></td>
 							<td th:text="${#dates.format(post.data, 'dd/MM/yyyy')}"></td>

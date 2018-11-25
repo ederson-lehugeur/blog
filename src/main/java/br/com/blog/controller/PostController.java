@@ -11,17 +11,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.blog.model.Post;
+import br.com.blog.service.CategoriaService;
 import br.com.blog.service.PostService;
 
 @Controller
 public class PostController {
 	@Autowired
-	private PostService service;
+	private PostService postService;
+
+	@Autowired
+	private CategoriaService categoriaService;
 
 	@GetMapping("/")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("/post");
-		mv.addObject("posts", service.findAll());
+		mv.addObject("posts", postService.findAll());
 
 		return mv;
 	}
@@ -37,6 +41,7 @@ public class PostController {
 	public ModelAndView add(Post post) {
 		ModelAndView mv = new ModelAndView("/postAdd");
 		mv.addObject("post", post);
+		mv.addObject("categorias", categoriaService.findAll());
 
 		return mv;
 	}
@@ -44,13 +49,13 @@ public class PostController {
 	@GetMapping("/edit/{id}")
 	public ModelAndView edit(@PathVariable("id") Long id) {
 
-		return add(service.findPostById(id));
+		return add(postService.findPostById(id));
 	}
 
 	@GetMapping("/delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
 
-		service.delete(id);
+		postService.delete(id);
 
 		return findAll();
 	}
@@ -61,7 +66,7 @@ public class PostController {
 			return add(post);
 		}
 
-		service.save(post);
+		postService.save(post);
 
 		return findAll();
 	}
