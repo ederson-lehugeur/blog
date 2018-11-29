@@ -30,10 +30,6 @@ public class Comentario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(nullable = false, length = 80)
-	@NotBlank(message = "Autor é uma informação obrigatória.")
-	private String autor;
-
 	@Column(nullable = false, length = 2000)
 	@NotBlank(message = "Texto é uma informação obrigatória.")
 	private String texto;
@@ -49,20 +45,17 @@ public class Comentario implements Serializable {
 	@NotNull(message = "Post é uma informação obrigatória.")
     private Post post;
 
+	@ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+	@NotNull(message = "Usuário é uma informação obrigatória.")
+    private Usuario usuario;
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getAutor() {
-		return autor;
-	}
-
-	public void setAutor(String autor) {
-		this.autor = autor;
 	}
 
 	public String getTexto() {
@@ -87,6 +80,14 @@ public class Comentario implements Serializable {
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

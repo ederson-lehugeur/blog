@@ -36,7 +36,7 @@
 						<tr>
 							<th>ID</th>
 							<th>ID do Post</th>
-							<th>Autor</th>
+							<th>Usuario</th>
 							<th>Texto</th>
 							<th>Data</th>
 						</tr>
@@ -45,7 +45,7 @@
 						<tr th:each="comentario : ${comentarios}">
 							<td th:text="${comentario.id}"></td>
 							<td th:text="${comentario.post.id}"></td>
-							<td th:text="${comentario.autor}"></td>
+							<td th:text="${comentario.usuario.nome}"></td>
 							<td th:text="${comentario.texto}"></td>
 							<td th:text="${#dates.format(comentario.data, 'dd/MM/yyyy')}"></td>
 						</tr>
