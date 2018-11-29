@@ -1,7 +1,5 @@
 package br.com.blog.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.blog.model.Post;
 import br.com.blog.service.CategoriaService;
+import br.com.blog.service.ComentarioService;
 import br.com.blog.service.PostService;
 
 @Controller
@@ -22,10 +21,21 @@ public class PostController {
 	@Autowired
 	private CategoriaService categoriaService;
 
+	@Autowired
+	private ComentarioService comentarioService;
+
 	@GetMapping("/")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("/post");
 		mv.addObject("posts", postService.findAll());
+
+		return mv;
+	}
+
+	@GetMapping("/posts/{id}/comments")
+	public ModelAndView findAllComments(@PathVariable("id") Long id) {
+		ModelAndView mv = new ModelAndView("/comments");
+		mv.addObject("comentarios", comentarioService.findAllCommentsByPostId(id));
 
 		return mv;
 	}
