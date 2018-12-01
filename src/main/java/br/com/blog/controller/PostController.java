@@ -26,7 +26,7 @@ public class PostController {
 
 	@GetMapping("/")
 	public ModelAndView findAll() {
-		ModelAndView mv = new ModelAndView("/post");
+		ModelAndView mv = new ModelAndView("/index");
 		mv.addObject("posts", postService.findAll());
 
 		return mv;
@@ -34,26 +34,30 @@ public class PostController {
 
 	@GetMapping("/posts/{id}/comments")
 	public ModelAndView findAllComments(@PathVariable("id") Long id) {
-		ModelAndView mv = new ModelAndView("/comments");
+		ModelAndView mv = new ModelAndView("/comments/show");
 		mv.addObject("comentarios", comentarioService.findAllCommentsByPostId(id));
 
 		return mv;
 	}
 
-	@GetMapping("/hello")
-	public ModelAndView hello() {
-		ModelAndView mv = new ModelAndView("/hello");
-
-		return mv;
-	}
-
-	@GetMapping("/add")
+	@GetMapping("/new")
 	public ModelAndView add(Post post) {
-		ModelAndView mv = new ModelAndView("/postAdd");
+		ModelAndView mv = new ModelAndView("/posts/new");
 		mv.addObject("post", post);
 		mv.addObject("categorias", categoriaService.findAll());
 
 		return mv;
+	}
+
+	@PostMapping("/save")
+	public ModelAndView save(Post post, BindingResult result) {
+		if (result.hasErrors()) {
+			return add(post);
+		}
+
+		postService.save(post);
+
+		return findAll();
 	}
 
 	@GetMapping("/edit/{id}")
@@ -66,17 +70,6 @@ public class PostController {
 	public ModelAndView delete(@PathVariable("id") Long id) {
 
 		postService.delete(id);
-
-		return findAll();
-	}
-
-	@PostMapping("/save")
-	public ModelAndView save(Post post, BindingResult result) {
-		if(result.hasErrors()) {
-			return add(post);
-		}
-
-		postService.save(post);
 
 		return findAll();
 	}
