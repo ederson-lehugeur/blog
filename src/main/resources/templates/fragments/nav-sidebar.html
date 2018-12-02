@@ -6,6 +6,8 @@
 		<ul class="nav nav-sidebar">
 			<li th:classappend="${postController != NULL} ? active : ''"><a
 				th:href="@{/}">Posts</a></li>
+			<li th:classappend="${categoryController != NULL} ? active : ''"><a
+				th:href="@{/categories}">Categorias</a></li>
 			<li th:classappend="${moderatorController != NULL} ? active : ''"><a
 				th:href="@{/moderators}">Moderadores</a></li>
 			<li th:classappend="${userController != NULL} ? active : ''"><a

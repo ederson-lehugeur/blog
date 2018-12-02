@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<!--/*/ <th:block th:include="fragments/header :: head"></th:block> /*/-->
+</head>
+
+<body>
+	<!--/*/ <th:block th:include="fragments/nav-top :: navigation"></th:block> /*/-->
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<!--/*/ <th:block th:include="fragments/nav-sidebar :: navigation-sidebar"></th:block> /*/-->
+			</div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<ol class="breadcrumb">
+					<li><a title="Categorias" th:href="@{/categories}">Categorias</a></li>
+					<li th:if="${categoria.id == NULL}" class="active">Nova
+						Categoria</li>
+					<li th:if="${categoria.id != NULL}" class="active">Editar
+						Categoria</li>
+				</ol>
+
+				<h1 class="page-header">Cadastro de Categorias</h1>
+
+				<form class="form-horizontal" th:object="${categoria}"
+					th:action="@{/categories/save}" method="POST" style="margin: 10px">
+					<div class="form-group">
+						<fieldset>
+							<div class="form-group row">
+								<div class="alert alert-danger"
+									th:if="${#fields.hasAnyErrors()}">
+									<div th:each="detailedError : ${#fields.detailedErrors()}">
+										<span th:text="${detailedError.message}"></span>
+									</div>
+								</div>
+							</div>
+							<div th:if="${categoria.id != NULL}" class="form-group row">
+								<div class="col-md-1">
+									<input type="text" class="form-control input-sm" id="id"
+										th:field="*{id}" readOnly="readonly" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-6"
+									th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+									<label>Categoria</label> <input type="text"
+										class="form-control input-sm" th:field="*{nome}"
+										maxlength="150" placeholder="Informe a categoria" />
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<div class="form-group row">
+						<button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+						<a th:href="@{/categories}" class="btn btn-sm btn-default">Cancelar</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+</body>
+</html>
