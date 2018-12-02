@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.blog.model.Moderador;
-import br.com.blog.model.Post;
 import br.com.blog.service.ModeradorService;
 
 @Controller
