@@ -16,7 +16,12 @@
 			</div>
 
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h1 class="page-header">Posts</h1>
+				<!--ol class="breadcrumb">
+					<li><a title="Posts" th:href="@{/}">Posts</a></li>
+					<li class="active">Comentários</li>
+				</ol-->
+
+				<h1 class="page-header">Moderadores</h1>
 
 				<div class="table-responsive">
 					<table
@@ -24,30 +29,27 @@
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>Categoria</th>
-								<th>Autor</th>
-								<th>T&iacute;tulo</th>
-								<th>Data</th>
+								<th>E-mail</th>
+								<th>Nome</th>
+								<th>Sobrenome</th>
+								<th>Ativo</th>
 								<th>Opções</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="post : ${posts}">
-								<td th:text="${post.id}"></td>
-								<td th:text="${post.categoria.nome}"></td>
-								<td th:text="${post.autor}"></td>
-								<td th:text="${post.titulo}"></td>
-								<td th:text="${#dates.format(post.data, 'dd/MM/yyyy')}"></td>
+							<tr th:each="moderador : ${moderadores}">
+								<td th:text="${moderador.id}"></td>
+								<td th:text="${moderador.email}"></td>
+								<td th:text="${moderador.nome}"></td>
+								<td th:text="${moderador.sobrenome}"></td>
+								<td th:text="${moderador.ativo}"></td>
 								<td>
 									<div class="pull-right">
-										<a title="Comentários" class="posts-icon"
-											th:href="@{/posts/{id}/comments(id=${post.id})}"> <i
-											class="fa fa-comments" aria-hidden="true"></i>
-										</a> <a title="Editar" class="posts-icon"
-											th:href="@{/edit/{id}(id=${post.id})}"> <i
+										<a title="Editar" class="posts-icon"
+											th:href="@{/moderators/edit/{id}(id=${moderador.id})}"> <i
 											class="fa fa-pencil-square-o" aria-hidden="true"></i>
 										</a> <a title="Excluir" class="posts-icon"
-											th:href="@{/delete/{id}(id=${post.id})}"> <i
+											th:href="@{/moderators/delete/{id}(id=${moderador.id})}"> <i
 											class="fa fa-trash" aria-hidden="true"></i>
 										</a>
 									</div>
@@ -57,7 +59,15 @@
 					</table>
 				</div>
 
-				<a class="btn btn-sm btn-success" th:href="@{/new}">Adicionar</a>
+				<a class="btn btn-sm btn-success" th:href="@{/moderators/new}">Adicionar</a>
+				<!--div class="row">
+					<div class="col-sm-2">
+						<a class="btn btn-sm btn-default pull-left" th:href="@{/}">Voltar</a>
+					</div>
+					<div class="col-sm-offset-8 col-sm-2">
+						<a class="btn btn-sm btn-success pull-right" th:href="@{/add/}">Adicionar</a>
+					</div>
+				</div-->
 			</div>
 		</div>
 	</div>

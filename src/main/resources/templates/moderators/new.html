@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<!--/*/ <th:block th:include="fragments/header :: head"></th:block> /*/-->
+</head>
+
+<body>
+	<!--/*/ <th:block th:include="fragments/nav-top :: navigation"></th:block> /*/-->
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<!--/*/ <th:block th:include="fragments/nav-sidebar :: navigation-sidebar"></th:block> /*/-->
+			</div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<ol class="breadcrumb">
+					<li><a title="Moderadores" th:href="@{/moderators}">Moderadores</a></li>
+					<li th:if="${moderador.id == NULL}" class="active">Novo
+						Moderador</li>
+					<li th:if="${moderador.id != NULL}" class="active">Editar
+						Moderador</li>
+				</ol>
+
+				<h1 class="page-header">Cadastro de Moderadores</h1>
+
+				<form class="form-horizontal" th:object="${moderador}"
+					th:action="@{/moderators/save}" method="POST" style="margin: 10px">
+					<div class="form-group">
+						<fieldset>
+							<div class="form-group row">
+								<div class="alert alert-danger"
+									th:if="${#fields.hasAnyErrors()}">
+									<div th:each="detailedError : ${#fields.detailedErrors()}">
+										<span th:text="${detailedError.message}"></span>
+									</div>
+								</div>
+							</div>
+							<div th:if="${moderador.id != NULL}" class="form-group row">
+								<div class="col-md-1">
+									<input type="text" class="form-control input-sm" id="id"
+										th:field="*{id}" readOnly="readonly" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-6"
+									th:classappend="${#fields.hasErrors('email')}? 'has-error'">
+									<label>E-mail</label> <input type="email"
+										class="form-control input-sm" th:field="*{email}"
+										autofocus="autofocus" placeholder="Informe o e-mail"
+										maxlength="50" />
+								</div>
+							</div>
+							<div th:if="${moderador.id == NULL}" class="form-group row">
+								<div class="col-md-6"
+									th:classappend="${#fields.hasErrors('senha')}? 'has-error'">
+									<label>Senha</label> <input type="password"
+										class="form-control input-sm" th:field="*{senha}"
+										autofocus="autofocus" placeholder="Informe o senha"
+										maxlength="50" />
+								</div>
+							</div>
+							<input th:if="${moderador.id != NULL}" type="hidden"
+								class="form-control input-sm" th:field="*{senha}"
+								autofocus="autofocus" placeholder="Informe o senha"
+								maxlength="50" />
+							<div class="form-group row">
+								<div class="col-md-6"
+									th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+									<label>Nome</label> <input type="text"
+										class="form-control input-sm" th:field="*{nome}"
+										maxlength="150" placeholder="Informe o nome" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-6"
+									th:classappend="${#fields.hasErrors('sobrenome')}? 'has-error'">
+									<label>Sobrenome</label> <input type="text"
+										class="form-control input-sm" th:field="*{sobrenome}"
+										maxlength="150" placeholder="Informe o sobrenome" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="form-check col-md-6"
+									th:classappend="${#fields.hasErrors('ativo')}? 'has-error'">
+									<input type="checkbox" class="form-check-input" id="checkAtivo"
+										th:field="*{ativo}" th:checked="${true}"> <label class="form-check-label"
+										for="checkAtivo">Ativo</label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<div class="form-group row">
+						<button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+						<a th:href="@{/moderators}" class="btn btn-sm btn-default">Cancelar</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+</body>
+</html>

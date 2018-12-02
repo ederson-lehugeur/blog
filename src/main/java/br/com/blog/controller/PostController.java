@@ -28,6 +28,7 @@ public class PostController {
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("/index");
 		mv.addObject("posts", postService.findAll());
+		mv.addObject("postController", true);
 
 		return mv;
 	}
@@ -36,6 +37,7 @@ public class PostController {
 	public ModelAndView findAllComments(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("/comments/show");
 		mv.addObject("comentarios", comentarioService.findAllCommentsByPostId(id));
+		mv.addObject("postController", true);
 
 		return mv;
 	}
@@ -45,6 +47,7 @@ public class PostController {
 		ModelAndView mv = new ModelAndView("/posts/new");
 		mv.addObject("post", post);
 		mv.addObject("categorias", categoriaService.findAll());
+		mv.addObject("postController", true);
 
 		return mv;
 	}

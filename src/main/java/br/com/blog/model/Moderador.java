@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.Type;
+
 @Entity(name = "moderador")
 public class Moderador implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,8 +36,8 @@ public class Moderador implements Serializable {
     private String sobrenome;
 
 	@Column(nullable = false)
-	@NotBlank(message = "Ativo é uma informação obrigatória.")
-    private int ativo;
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean ativo;
 
 	public Long getId() {
 		return id;
@@ -77,11 +79,11 @@ public class Moderador implements Serializable {
 		this.sobrenome = sobrenome;
 	}
 
-	public int getAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(int ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 }
