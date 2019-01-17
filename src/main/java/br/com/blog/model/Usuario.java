@@ -1,12 +1,17 @@
 package br.com.blog.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.Type;
@@ -38,6 +43,10 @@ public class Usuario implements Serializable {
 	@Column(nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean ativo;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "usuario_role", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
 	public Long getId() {
 		return id;
@@ -85,5 +94,13 @@ public class Usuario implements Serializable {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 }
