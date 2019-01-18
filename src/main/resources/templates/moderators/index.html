@@ -33,6 +33,7 @@
 								<th>Nome</th>
 								<th>Sobrenome</th>
 								<th>Ativo</th>
+								<th>Roles</th>
 								<th>Opções</th>
 							</tr>
 						</thead>
@@ -43,6 +44,7 @@
 								<td th:text="${moderador.nome}"></td>
 								<td th:text="${moderador.sobrenome}"></td>
 								<td th:text="${moderador.ativo}"></td>
+								<td><p th:each="role : ${moderador.roles}" th:text="${role.role}"></p></td>
 								<td>
 									<div class="pull-right">
 										<a title="Editar" class="posts-icon"

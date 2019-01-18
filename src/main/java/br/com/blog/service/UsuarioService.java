@@ -32,6 +32,14 @@ public class UsuarioService {
 		return usuarioRepository.findAll();
 	}
 
+	public List<Usuario> findAllByRoleUser() {
+		return usuarioRepository.findAllByRoleUser();
+	}
+
+	public List<Usuario> findAllByRoleAdmin() {
+		return usuarioRepository.findAllByRoleAdmin();
+	}
+
 	public Usuario findUsuarioById(Long id) {
 		return usuarioRepository.findUsuarioById(id);
 	}

@@ -8,25 +8,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.blog.model.Moderador;
+import br.com.blog.model.Usuario;
 import br.com.blog.service.ModeradorService;
+import br.com.blog.service.UsuarioService;
 
 @Controller
 public class ModeratorController {
 	@Autowired
 	private ModeradorService moderadorService;
 
+	@Autowired
+	private UsuarioService usuarioService;
+
 	@GetMapping("/moderators")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("/moderators/index");
-		mv.addObject("moderadores", moderadorService.findAll());
+		mv.addObject("moderadores", usuarioService.findAllByRoleAdmin());
 		mv.addObject("moderatorController", true);
 
 		return mv;
 	}
 
 	@GetMapping("/moderators/new")
-	public ModelAndView add(Moderador moderador) {
+	public ModelAndView add(Usuario moderador) {
 		ModelAndView mv = new ModelAndView("/moderators/new");
 		mv.addObject("moderador", moderador);
 		mv.addObject("moderatorController", true);
@@ -35,11 +39,12 @@ public class ModeratorController {
 	}
 
 	@PostMapping("/moderators/save")
-	public ModelAndView save(Moderador moderador, BindingResult result) {
+	public ModelAndView save(Usuario moderador, BindingResult result) {
 		if (result.hasErrors()) {
 			return add(moderador);
 		}
 
+		// Pensar em uma maneira de escolher a ROLE
 		moderadorService.save(moderador);
 
 		return findAll();
@@ -48,7 +53,7 @@ public class ModeratorController {
 	@GetMapping("/moderators/edit/{id}")
 	public ModelAndView edit(@PathVariable("id") Long id) {
 
-		return add(moderadorService.findModeradorById(id));
+		return add(usuarioService.findUsuarioById(id));
 	}
 
 	@GetMapping("/moderators/delete/{id}")

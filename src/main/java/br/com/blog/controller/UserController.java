@@ -17,7 +17,7 @@ public class UserController {
 	@GetMapping("/users")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("/users/index");
-		mv.addObject("usuarios", usuarioService.findAll());
+		mv.addObject("usuarios", usuarioService.findAllByRoleUser());
 		mv.addObject("userController", true);
 
 		return mv;

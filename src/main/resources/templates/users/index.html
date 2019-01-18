@@ -28,6 +28,7 @@
 								<th>Nome</th>
 								<th>Sobrenome</th>
 								<th>Ativo</th>
+								<th>Roles</th>
 								<th>Opções</th>
 							</tr>
 						</thead>
@@ -38,6 +39,7 @@
 								<td th:text="${usuario.nome}"></td>
 								<td th:text="${usuario.sobrenome}"></td>
 								<td th:text="${usuario.ativo}"></td>
+								<td><p th:each="role : ${usuario.roles}" th:text="${role.role}"></p></td>
 								<td>
 									<div class="pull-right">
 										<a th:if="${usuario.ativo}" title="Desativar" class="posts-icon"
