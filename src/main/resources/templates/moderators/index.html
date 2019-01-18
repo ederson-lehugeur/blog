@@ -47,10 +47,19 @@
 								<td><p th:each="role : ${moderador.roles}" th:text="${role.role}"></p></td>
 								<td>
 									<div class="pull-right">
-										<a title="Editar" class="posts-icon"
+										<!--a title="Editar" class="posts-icon"
 											th:href="@{/moderators/edit/{id}(id=${moderador.id})}"> <i
 											class="fa fa-pencil-square-o" aria-hidden="true"></i>
-										</a> <a title="Excluir" class="posts-icon"
+										</a-->
+										<a th:if="${moderador.ativo}" title="Desativar" class="posts-icon"
+											th:href="@{/moderators/edit/{id}/deactivate(id=${moderador.id})}"> <i
+											class="fa fa-smile-o" aria-hidden="true"></i>
+										</a>
+										<a th:unless="${moderador.ativo}" title="Ativar" class="posts-icon"
+											th:href="@{/moderators/edit/{id}/activate(id=${moderador.id})}"> <i
+											class="fa fa-frown-o" aria-hidden="true"></i>
+										</a>
+										 <a title="Excluir" class="posts-icon"
 											th:href="@{/moderators/delete/{id}(id=${moderador.id})}"> <i
 											class="fa fa-trash" aria-hidden="true"></i>
 										</a>

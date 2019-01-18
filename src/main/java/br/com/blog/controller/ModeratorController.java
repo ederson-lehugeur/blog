@@ -1,6 +1,7 @@
 package br.com.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,13 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.blog.model.Usuario;
-import br.com.blog.service.ModeradorService;
 import br.com.blog.service.UsuarioService;
 
 @Controller
 public class ModeratorController {
-	@Autowired
-	private ModeradorService moderadorService;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -44,22 +42,44 @@ public class ModeratorController {
 			return add(moderador);
 		}
 
-		// Pensar em uma maneira de escolher a ROLE
-		moderadorService.save(moderador);
+		usuarioService.saveModerator(moderador);
 
 		return findAll();
 	}
 
-	@GetMapping("/moderators/edit/{id}")
-	public ModelAndView edit(@PathVariable("id") Long id) {
+	@GetMapping("/moderators/edit")
+	public ModelAndView edit(Authentication authentication) {
+		Usuario moderador = usuarioService.findUsuarioByEmail(authentication.getName());
 
-		return add(usuarioService.findUsuarioById(id));
+		return add(usuarioService.findUsuarioByEmail(moderador.getEmail()));
 	}
 
 	@GetMapping("/moderators/delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
 
-		moderadorService.delete(id);
+		usuarioService.delete(id);
+
+		return findAll();
+	}
+
+	@GetMapping("/moderators/edit/{id}/activate")
+	public ModelAndView editActivate(@PathVariable("id") Long id) {
+		Usuario moderador = usuarioService.findUsuarioById(id);
+
+		moderador.setAtivo(true);
+
+		usuarioService.saveModerator(moderador);
+
+		return findAll();
+	}
+
+	@GetMapping("/moderators/edit/{id}/deactivate")
+	public ModelAndView editDeactivate(@PathVariable("id") Long id) {
+		Usuario moderador = usuarioService.findUsuarioById(id);
+
+		moderador.setAtivo(false);
+
+		usuarioService.saveModerator(moderador);
 
 		return findAll();
 	}

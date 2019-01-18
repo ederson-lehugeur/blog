@@ -43,11 +43,11 @@
 								<td>
 									<div class="pull-right">
 										<a th:if="${usuario.ativo}" title="Desativar" class="posts-icon"
-											th:href="@{/users/edit/{id}/active(id=${usuario.id})}"> <i
+											th:href="@{/users/edit/{id}/deactivate(id=${usuario.id})}"> <i
 											class="fa fa-smile-o" aria-hidden="true"></i>
 										</a>
 										<a th:unless="${usuario.ativo}" title="Ativar" class="posts-icon"
-											th:href="@{/users/edit/{id}/active(id=${usuario.id})}"> <i
+											th:href="@{/users/edit/{id}/activate(id=${usuario.id})}"> <i
 											class="fa fa-frown-o" aria-hidden="true"></i>
 										</a>
 									</div>

@@ -23,16 +23,24 @@ public class UserController {
 		return mv;
 	}
 
-	@GetMapping("/users/edit/{id}/active")
-	public ModelAndView editActive(@PathVariable("id") Long id) {
+	@GetMapping("/users/edit/{id}/activate")
+	public ModelAndView editActivate(@PathVariable("id") Long id) {
 		Usuario usuario = usuarioService.findUsuarioById(id);
 
-		if (usuario.getAtivo())
-			usuario.setAtivo(false);
-		else
-			usuario.setAtivo(true);
+		usuario.setAtivo(true);
 
-		usuarioService.save(usuario);
+		usuarioService.saveUser(usuario);
+
+		return findAll();
+	}
+
+	@GetMapping("/users/edit/{id}/deactivate")
+	public ModelAndView editDeactivate(@PathVariable("id") Long id) {
+		Usuario usuario = usuarioService.findUsuarioById(id);
+
+		usuario.setAtivo(false);
+
+		usuarioService.saveUser(usuario);
 
 		return findAll();
 	}

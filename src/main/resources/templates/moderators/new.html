@@ -62,10 +62,19 @@
 										maxlength="50" />
 								</div>
 							</div>
-							<input th:if="${moderador.id != NULL}" type="hidden"
+							<div th:if="${moderador.id != NULL}" class="form-group row">
+								<div class="col-md-6"
+									th:classappend="${#fields.hasErrors('senha')}? 'has-error'">
+									<label>Nova Senha</label> <input type="password"
+										class="form-control input-sm" th:field="*{senha}"
+										autofocus="autofocus" placeholder="Informe a nova senha"
+										maxlength="50" />
+								</div>
+							</div>
+							<!--input th:if="${moderador.id != NULL}" type="hidden"
 								class="form-control input-sm" th:field="*{senha}"
 								autofocus="autofocus" placeholder="Informe o senha"
-								maxlength="50" />
+								maxlength="50" /-->
 							<div class="form-group row">
 								<div class="col-md-6"
 									th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
